@@ -9,13 +9,12 @@ Random.seed!(14)
 
 @app begin
     # Define reactive variables 
-    @in beta = 0.52
+    @in alpha = 0.52
     @in gamma = 0.24
-    @in noise_level = 0.3  
-    @in S0_discrete = 990
-    @in I0_discrete = 10
-    @in R0_discrete = 0
-    @in time_steps = 100
+    @out S0_discrete = 990
+    @out I0_discrete = 10
+    @out R0_discrete = 0
+    @out time_steps = 100
     @in delta_t = 0.1
     @in n_realizations = 50
 
@@ -44,37 +43,14 @@ Random.seed!(14)
         yaxis_title="Population",
         template="plotly_white"
     )
-    
-    @out data_plot = []
-    @out data_plot_layout = PlotlyBase.Layout(
-        title="Synthetic Data",
-        xaxis_title="Time",
-        yaxis_title="Population",
-        template="plotly_white"
-    )
-    @out beta_mean = 0.0
-    @out gamma_mean = 0.0
-    @out beta_std = 0.0
-    @out gamma_std = 0.0
-    @out beta_mcse = 0.0
-    @out gamma_mcse = 0.0
-    @out beta_ess_bulk = 0.0
-    @out gamma_ess_bulk = 0.0
-    @out beta_ess_tail = 0.0
-    @out gamma_ess_tail = 0.0
-    # @out summary_stats = 0
-
-    @private u0 = [0.99, 0.01]  
-    @private tspan = (0.0, 100.0)  
-    @private t = 0.0:1.0:100.0  # Time points for solution
-    @private true_p = [0.52, 0.24]
+  
 
     
-    @onchange beta, gamma, S0_discrete, I0_discrete, R0_discrete, time_steps, delta_t begin
+    @onchange alpha, gamma begin
         try
             # Single realization of stochastic model
             S_stoch, I_stoch, R_stoch = simulate_SIR_discrete_stochastic(
-                S0_discrete, I0_discrete, R0_discrete, beta, gamma, time_steps; Δt=delta_t
+                S0_discrete, I0_discrete, R0_discrete, alpha, gamma, time_steps; Δt=delta_t
             )
             
             time_points = 0:time_steps
@@ -89,11 +65,11 @@ Random.seed!(14)
     end
     
     # Stochastic ensemble visualization
-    @onchange n_realizations, beta, gamma, S0_discrete, I0_discrete, R0_discrete, time_steps, delta_t begin
+    @onchange n_realizations, alpha, gamma, S0_discrete, I0_discrete, R0_discrete, time_steps, delta_t begin
         try
             # Multiple realizations for ensemble analysis
             S_ensemble, I_ensemble, R_ensemble = simulate_SIR_stochastic_ensemble(
-                S0_discrete, I0_discrete, R0_discrete, beta, gamma, time_steps, n_realizations; Δt=delta_t
+                S0_discrete, I0_discrete, R0_discrete, alpha, gamma, time_steps, n_realizations; Δt=delta_t
             )
             
             time_points = 0:time_steps

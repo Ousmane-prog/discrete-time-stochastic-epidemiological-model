@@ -2,7 +2,7 @@
 
 julia_version = "1.11.3"
 manifest_format = "2.0"
-project_hash = "9364d5dea80c76ffef44ccfcf3e6005f17fbb268"
+project_hash = "4c54f4780d2c02f5252c80796cd47269c63a7b5f"
 
 [[deps.ADTypes]]
 git-tree-sha1 = "60665b326b75db6517939d0e1875850bc4a54368"
@@ -2257,6 +2257,12 @@ weakdeps = ["DataFrames", "JSON", "OffsetArrays"]
     StippleDataFramesExt = "DataFrames"
     StippleJSONExt = "JSON"
     StippleOffsetArraysExt = "OffsetArrays"
+
+[[deps.StippleLatex]]
+deps = ["Genie", "Stipple"]
+git-tree-sha1 = "3e64f90b64d21d7118270050e349b70ab10c6768"
+uuid = "8706c442-30ce-4f68-b407-b81ebf148be9"
+version = "0.5.8"
 
 [[deps.StipplePivotTable]]
 deps = ["Stipple", "StippleUI", "Tables"]

@@ -1,6 +1,6 @@
 module DiscreteTimeSIModel
 
-using Distributions, Random, Turing, MCMCChains
+using Turing, PlotlyBase, MCMCChains, Random 
 
 """
 Discrete-time SIR model simulation functions
@@ -64,7 +64,7 @@ end
 """
 Generate multiple stochastic realizations for ensemble analysis
 """
-function simulate_SIR_stochastic_ensemble(S0, I0, R0, β, γ, steps, n_realizations; Δt=0.01)
+function simulate_SIR_stochastic_ensemble(S0, I0, R0, α, γ, steps, n_realizations; Δt=0.01)
     # Store results for all realizations
     S_ensemble = zeros(Float64, steps+1, n_realizations)
     I_ensemble = zeros(Float64, steps+1, n_realizations)
